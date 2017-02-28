@@ -38,11 +38,12 @@
         var ulNode = document.getElementById("source");
         var children = ulNode.childNodes;
 
-
-
-        console.log(children[0]);
-        //  return data;
-
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeType === 1) {
+                data.push([children[i].childNodes[0].nodeValue, children[i].childNodes[1].childNodes[0].nodeValue]);
+            }
+        }
+        return data;
     }
 
     /**
@@ -51,6 +52,9 @@
      * 返回一个排序后的数组
      */
     function sortAqiData(data) {
+        return data.sort(function (a, b) {
+            return a[1] < b[1]
+        });
 
     }
 
@@ -60,7 +64,12 @@
      * 格式见ul中的注释的部分
      */
     function render(data) {
-
+        var display = document.getElementById("resort");
+        var value = "";
+        for (var i = 0; i < data.length; i++) {
+            value += ("<li>第" + (i + 1) + "名：" + data[i][0] + "<b>" + data[i][1] + "</b>" + "</li>");
+        }
+        display.innerHTML = value;
     }
 
     function btnHandle() {
@@ -70,13 +79,11 @@
     }
 
     function init() {
-
         // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-
+        var btn = document.getElementById("sort-btn");
+        btn.onclick = btnHandle;
     }
-
-    //init();
-    getData();
+    init();
 </script>
 </body>
 </html>
