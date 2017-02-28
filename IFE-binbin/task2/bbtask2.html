@@ -21,7 +21,8 @@
         ["广州", 50],
         ["西安", 100],
         ["武汉", 100],
-        ["成都", 90]
+        ["成都", 90],
+        ["重庆", 70]
     ];
     var ul = document.getElementById("aqi-list");
 
@@ -32,10 +33,10 @@
          遍历读取aqiData中各个城市的数据
          将空气质量指数大于60的城市显示到aqi-list的列表中
          */
-        var temp, value = '', count = 0;
+        var temp, value = '', count = 1;
 
-        /*冒泡排序，循环两次即可得到空气质量指数最大和第二大的城市*/
-        for (var i = 0; i < 2; i++) {
+        /*对空气污染指数冒泡排序*/
+        for (var i = 0; i < aqiData.length; i++) {
             for (var j = 0; j < aqiData.length - 1 - i; j++) {
                 if (aqiData[j][1] > aqiData[j + 1][1]) {
                     temp = aqiData[j];
@@ -45,18 +46,9 @@
             }
         }
 
-        /*找出空气质量前两名的城市，并存入value,用于显示*/
-        foo:for (var i = aqiData.length - 1; i >= 0; i--) {
-            switch (count) {
-                case 0:
-                    value += ('<li>' + "第一名:" + aqiData[i][0] + "," + aqiData[i][1] + '</li>');
-                    break;
-                case 1:
-                    value += ('<li>' + "第二名:" + aqiData[i][0] + "," + aqiData[i][1] + '</li>');
-                    break;
-                default :
-                    break foo;
-            }
+        /*找出空气质量符合条件的的城市，并存入value,用于显示*/
+        for (var i = aqiData.length - 1; aqiData[i][1] > 60; i--) {
+            value += ('<li>' + "第" + count + "名:" + aqiData[i][0] + "," + aqiData[i][1] + '</li>');
             if (aqiData[i][1] !== aqiData[i - 1][1]) {
                 count++;
             }
