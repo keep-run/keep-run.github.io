@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h3>污染城市列表</h3>
+<ul id="aqi-list">
+    <!--
+        <li>第一名：福州（样例），10</li>
+          <li>第二名：福州（样例），10</li> -->
+</ul>
+
+<script type="text/javascript">
+
+    var aqiData = [
+        ["北京", 90],
+        ["上海", 50],
+        ["福州", 10],
+        ["广州", 50],
+        ["西安", 100],
+        ["武汉", 100],
+        ["成都", 90]
+    ];
+    var ul = document.getElementById("aqi-list");
+
+    (function () {
+
+        /*
+         在注释下方编写代码
+         遍历读取aqiData中各个城市的数据
+         将空气质量指数大于60的城市显示到aqi-list的列表中
+         */
+        var temp, value = '', count = 0;
+
+        /*冒泡排序，循环两次即可得到空气质量指数最大和第二大的城市*/
+        for (var i = 0; i < 2; i++) {
+            for (var j = 0; j < aqiData.length - 1 - i; j++) {
+                if (aqiData[j][1] > aqiData[j + 1][1]) {
+                    temp = aqiData[j];
+                    aqiData[j] = aqiData[j + 1];
+                    aqiData[j + 1] = temp;
+                }
+            }
+        }
+
+        /*找出空气质量前两名的城市，并存入value,用于显示*/
+        foo:for (var i = aqiData.length - 1; i >= 0; i--) {
+            switch (count) {
+                case 0:
+                    value += ('<li>' + "第一名:" + aqiData[i][0] + "," + aqiData[i][1] + '</li>');
+                    break;
+                case 1:
+                    value += ('<li>' + "第二名:" + aqiData[i][0] + "," + aqiData[i][1] + '</li>');
+                    break;
+                default :
+                    break foo;
+            }
+            if (aqiData[i][1] !== aqiData[i - 1][1]) {
+                count++;
+            }
+        }
+        ul.innerHTML = value;
+    })();
+
+</script>
+</body>
+</html>
