@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE binbin task5</title>
+    <style>
+        span {
+            display: inline-block;
+            background-color: red;
+            margin: 10px 5px;
+            cursor: pointer;
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="num" placeholder="请输入一个10-100的整数">
+<button id="left-in">左侧入</button>
+<button id="right-in">右侧入</button>
+<button id="left-out">左侧出</button>
+<button id="right-out">右侧出</button>
+<button id="sort">排序</button>
+<div id="queue"></div>
+<script type="text/javascript">
+
+    /*检测输入输入的是不是10-100的整数*/
+    function checkInput(num) {
+        var reg = /^[+-]?\d+$/;
+        if ((reg.test(num)) && ((num >= 10) && (num <= 100))) {
+            return true;
+        } else {
+            alert("请输入10-100的整数");
+            return false;
+        }
+    }
+
+    /*返回输入的合法数值*/
+    function getNum() {
+        var input = document.getElementById("num");
+        var num = input.value;
+        input.value = ""; //拿到值之后清空输入框，方便下次输入
+        if (checkInput(num)) {
+            return num;
+        } else {
+            return null;
+        }
+    }
+    /*原地等待一段时间*/
+    function wait(n) {
+        for (var i = 0; i < n; i++) {
+        }
+    }
+
+    /*实现左边输入功能*/
+    function leftIn(queue) {
+        var num = getNum();
+        if (num) {
+            if (queue.length > 60) {
+                alert("队列最多只能有60个节点，已经超出范围");
+            } else {
+                var span = document.createElement("span");
+                span.style.height = ( num + "px");
+                var children = queue.childNodes;
+                queue.insertBefore(span, children[0]);
+            }
+        }
+    }
+
+    /*实现右输入功能*/
+    function rightIn(queue) {
+        var num = getNum();
+        if (num) {
+            if (queue.length > 60) {
+                alert("队列最多只能有60个节点，已经超出范围");
+            } else {
+                var span = document.createElement("span");
+                span.style.height = num + "px";
+                queue.appendChild(span);
+            }
+        }
+    }
+    /*实现左边删除功能*/
+    function leftOut(queue) {
+        var children = queue.childNodes;
+        if (children.length > 0) {
+            alert("删除最左边一项");
+            queue.removeChild(children[0]);
+        }
+    }
+
+    /*实现右删除功能*/
+    function rightOut(queue) {
+        var children = queue.childNodes;
+        if (children.length > 0) {
+            alert("删除最右边一项");
+            queue.removeChild(children[children.length - 1]);
+        }
+    }
+
+
+    /*实现冒泡排序的动态演示*/
+    function bubbleSort(queue) {
+        var children = queue.childNodes;
+        var n = children.length;
+        var flag = true;
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < n - 1 - i; j++) {
+                var height1 = children[j].style.height;
+                var height2 = children[j + 1].style.height;
+                /*由于height1和height2是带有单位的字符串，所以要先去掉单位（由splice函数完成），
+                 再转换成数值类型（-0完成隐式转换），最后作比较。*/
+                var num1 = height1.slice(0, height1.length - 2) - 0;
+                var num2 = height2.slice(0, height2.length - 2) - 0;
+                if (num1 > num2) {
+                    children[j].style.height = num2 + "px";
+                    children[j + 1].style.height = num1 + "px";
+                    flag = false;
+                }
+            }
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    /*初始化，为按钮绑定事件*/
+    function init() {
+        var queue = document.getElementById("queue");
+        document.getElementById("left-in").onclick = function () {
+            leftIn(queue);
+        };
+        document.getElementById("right-in").onclick = function () {
+            rightIn(queue);
+        };
+        document.getElementById("left-out").onclick = function () {
+            leftOut(queue);
+        };
+        document.getElementById("right-out").onclick = function () {
+            rightOut(queue);
+        };
+        document.getElementById("sort").onclick = function () {
+            bubbleSort(queue);
+        };
+        document.getElementById("queue").onclick = function (event) {
+            /*以下两个考虑到浏览器的兼容问题，IE下event是window的属性
+             e.srcElement也是IE下获取发生事件的那个元素*/
+            var e = window.event || event;
+            var t = e.target || e.srcElement;
+            /*在HTML中，t.tagName返回的是标签名的大写形式；XML中返回的与源码中大小写一致*/
+            var tag = t.tagName.toLowerCase();
+            if (tag === "span") {
+                queue.removeChild(t);
+            }
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>
