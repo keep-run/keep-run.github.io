@@ -74,6 +74,7 @@
             }
         }
     }
+
     /*实现左边删除功能*/
     function leftOut(queue) {
         var children = queue.childNodes;
@@ -92,7 +93,6 @@
         }
     }
 
-
     /*取出队列各节点的高度，转换成数值，进行冒泡排序，并存储每次交换后的状态于allState
      * 用来动态展示排序过程*/
     function bubbleSort(queue) {
@@ -105,7 +105,6 @@
             /*slice函数用来去掉height的单位“px”,-0将字符串转换成数值*/
             tempState.push((height.slice(0, height.length - 2) - 0));
         }
-
         /*实现对tempState数组的复制,并存储*/
         allState.push(tempState.concat());
         /*对tempState做冒泡排序*/
@@ -129,6 +128,14 @@
         return allState;
     }
 
+    /*将网页上span的高度设置为给定高度*/
+    function showNode(arr, queue) {
+        var children = queue.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            children[i].style.height = arr[i] + "px";
+        }
+    }
+
     /*设置定时器，每隔一秒显示下一次排序状态*/
     function sortedDisplay(queue) {
         var allState = bubbleSort(queue);
@@ -139,14 +146,6 @@
                     showNode(heightArr, queue)
                 }, i * 1000);
             })();
-        }
-    }
-
-    /*将网页上span的高度设置为给定高度*/
-    function showNode(arr, queue) {
-        var children = queue.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            children[i].style.height = arr[i] + "px";
         }
     }
 
