@@ -19,7 +19,7 @@
 <button id="right-in">右侧入</button>
 <button id="left-out">左侧出</button>
 <button id="right-out">右侧出</button>
-<button id="sort">排序</button>
+<button id="sort">冒泡排序</button>
 <div id="queue"></div>
 <script type="text/javascript">
 
@@ -93,28 +93,60 @@
     }
 
 
-    /*实现冒泡排序的动态演示*/
+    /*取出队列各节点的高度，转换成数值，进行冒泡排序，并存储每次交换后的状态于allState
+     * 用来动态展示排序过程*/
     function bubbleSort(queue) {
         var children = queue.childNodes;
+        var allState = [];//存储节点的所有排序状态
+        var tempState = [];//存储节点每交换一次后的状态
         var n = children.length;
-        var flag = true;
         for (var i = 0; i < n; i++) {
-            for (var j = 0; j < n - 1 - i; j++) {
-                var height1 = children[j].style.height;
-                var height2 = children[j + 1].style.height;
-                /*由于height1和height2是带有单位的字符串，所以要先去掉单位（由splice函数完成），
-                 再转换成数值类型（-0完成隐式转换），最后作比较。*/
-                var num1 = height1.slice(0, height1.length - 2) - 0;
-                var num2 = height2.slice(0, height2.length - 2) - 0;
-                if (num1 > num2) {
-                    children[j].style.height = num2 + "px";
-                    children[j + 1].style.height = num1 + "px";
+            var height = children[i].style.height;
+            /*slice函数用来去掉height的单位“px”,-0将字符串转换成数值*/
+            tempState.push((height.slice(0, height.length - 2) - 0));
+        }
+
+        /*实现对tempState数组的复制,并存储*/
+        allState.push(tempState.concat());
+        /*对tempState做冒泡排序*/
+        var flag;
+        var temp;
+        for (var i = 0; i < n; i++) {
+            flag = true;
+            for (var j = 0; j < n - i - 1; j++) {
+                if (tempState[j] > tempState[j + 1]) {
+                    temp = tempState[j + 1];
+                    tempState[j + 1] = tempState[j];
+                    tempState[j] = temp;
                     flag = false;
                 }
+                allState.push(tempState.concat());
             }
             if (flag) {
                 break;
             }
+        }
+        return allState;
+    }
+
+    /*设置定时器，每隔一秒显示下一次排序状态*/
+    function sortedDisplay(queue) {
+        var allState = bubbleSort(queue);
+        for (var i = 0; i < allState.length; i++) {
+            (function () {
+                var heightArr = allState[i].concat();
+                setTimeout(function () {
+                    showNode(heightArr, queue)
+                }, i * 1000);
+            })();
+        }
+    }
+
+    /*将网页上span的高度设置为给定高度*/
+    function showNode(arr, queue) {
+        var children = queue.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            children[i].style.height = arr[i] + "px";
         }
     }
 
@@ -134,7 +166,7 @@
             rightOut(queue);
         };
         document.getElementById("sort").onclick = function () {
-            bubbleSort(queue);
+            sortedDisplay(queue);
         };
         document.getElementById("queue").onclick = function (event) {
             /*以下两个考虑到浏览器的兼容问题，IE下event是window的属性
