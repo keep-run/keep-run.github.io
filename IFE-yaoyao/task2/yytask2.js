@@ -1,21 +1,21 @@
 /**
  * Created by wang on 2017/3/6.
  */
-/*ÊäÈë¸ñÊ½ÕıÈ·*/
+/*è¾“å…¥æ ¼å¼æ­£ç¡®*/
 function rightInput(input, result, str) {
     result.style.color = "#5EBB46";
     result.innerHTML = str;
     input.style.borderColor = "#5EBB46";
 }
 
-/*ÊäÈë¸ñÊ½´íÎó*/
+/*è¾“å…¥æ ¼å¼é”™è¯¯*/
 function wrongInput(input, result, str) {
     result.style.color = "red";
     result.innerHTML = str;
     input.style.borderColor = "red";
 }
 
-/*ÊäÈëÎª¿Õ*/
+/*è¾“å…¥ä¸ºç©º*/
 function noInput(input, result, str) {
     result.style.color = "red";
     result.innerHTML = str;
@@ -23,31 +23,31 @@ function noInput(input, result, str) {
 }
 
 
-/*»ñµÃ½¹µãÊ±£¬ÏÈÇå³ıÉÏ´ÎĞ£Ñé½á¹ûËù×öµÄ¸Ä±ä*/
+/*è·å¾—ç„¦ç‚¹æ—¶ï¼Œå…ˆæ¸…é™¤ä¸Šæ¬¡æ ¡éªŒç»“æœæ‰€åšçš„æ”¹å˜*/
 function reset(input, result, str) {
     result.style.color = "black";
     result.innerText = str;
     input.style.borderColor = "gray";
 }
 
-/*È¡µÃÓÃÓÚÏÔÊ¾¹æÔòÒÔ¼°Ğ£Ñé½á¹ûµÄspan*/
+/*å–å¾—ç”¨äºæ˜¾ç¤ºè§„åˆ™ä»¥åŠæ ¡éªŒç»“æœçš„span*/
 function getSpan() {
     return document.getElementsByClassName("result")
 }
 
-/*Ãû³Æ»ñµÃ½¹µã*/
+/*åç§°è·å¾—ç„¦ç‚¹*/
 function nameFocus(name) {
-    reset(name, getSpan()[0], "±ØÌî£¬³¤¶ÈÎª4-16×Ö·û")
+    reset(name, getSpan()[0], "å¿…å¡«ï¼Œé•¿åº¦ä¸º4-16å­—ç¬¦")
 }
 
-/*Ãû³ÆÊ§È¥½¹µã£¬Ğ£ÑéÊäÈëÄÚÈİ²¢ÏÔÊ¾Ğ£Ñé½á¹û*/
+/*åç§°å¤±å»ç„¦ç‚¹ï¼Œæ ¡éªŒè¾“å…¥å†…å®¹å¹¶æ˜¾ç¤ºæ ¡éªŒç»“æœ*/
 function nameBlur(name) {
-    var flag = false;//±ê¼ÇÊÇ·ñĞ£Ñé½á¹û
+    var flag = false;//æ ‡è®°æ˜¯å¦æ ¡éªŒç»“æœ
     var result = getSpan()[0];
     var data = name.value;
     var length = 0;
     var str = '';
-    //Æ¥ÅäÖĞÎÄ×Ö·ûºÍºº×Ö
+    //åŒ¹é…ä¸­æ–‡å­—ç¬¦å’Œæ±‰å­—
     var reg = /[\u4E00-\u9FA5\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b\u2019\u2018]/;
     if (data.trim()) {
         for (var i = 0; i < data.length; i++) {
@@ -59,25 +59,25 @@ function nameBlur(name) {
         }
     }
     if ((length >= 4) && (length <= 16)) {
-        str = "¸ñÊ½ÕıÈ·";
+        str = "æ ¼å¼æ­£ç¡®";
         rightInput(name, result, str);
         flag = true;
     } else if (length == 0) {
-        str = "Ãû³Æ²»ÄÜÎª¿Õ";
+        str = "åç§°ä¸èƒ½ä¸ºç©º";
         noInput(name, result, str);
     } else {
-        str = "¸ñÊ½´íÎó";
+        str = "æ ¼å¼é”™è¯¯";
         wrongInput(name, result, str);
     }
     return flag;
 }
 
-/*ÃÜÂë¿ò»ñµÃ½¹µã*/
+/*å¯†ç æ¡†è·å¾—ç„¦ç‚¹*/
 function passwordFocus(password) {
-    reset(password, getSpan()[1], "±ØÌî£¬6-16Î»×ÖÄ¸»òÊı×Ö»òÁ½ÕßµÄ×éºÏ");
+    reset(password, getSpan()[1], "å¿…å¡«ï¼Œ6-16ä½å­—æ¯æˆ–æ•°å­—æˆ–ä¸¤è€…çš„ç»„åˆ");
 }
 
-/*ÃÜÂë¿òÊ§È¥½¹µã*/
+/*å¯†ç æ¡†å¤±å»ç„¦ç‚¹*/
 function passwordBlur(password) {
     var flag1 = false;
     var value = '';
@@ -85,82 +85,82 @@ function passwordBlur(password) {
     console.log(data);
     var reg = /^[0-9a-zA-z]{6,16}$/;
     if (reg.test(data)) {
-        rightInput(password, getSpan()[1], "ÃÜÂë¿ÉÓÃ");
+        rightInput(password, getSpan()[1], "å¯†ç å¯ç”¨");
         flag1 = true;
         value = data;
     } else if (data.trim().length == 0) {
-        noInput(password, getSpan()[1], "ÃÜÂë²»ÄÜÎª¿Õ");
+        noInput(password, getSpan()[1], "å¯†ç ä¸èƒ½ä¸ºç©º");
     } else {
-        wrongInput(password, getSpan()[1], "ÃÜÂë¸ñÊ½²»¶Ô");
+        wrongInput(password, getSpan()[1], "å¯†ç æ ¼å¼ä¸å¯¹");
     }
     return [flag1, value];
 }
 
-/*È·ÈÏÃÜÂë¿ò»ñµÃ½¹µã*/
+/*ç¡®è®¤å¯†ç æ¡†è·å¾—ç„¦ç‚¹*/
 function checkFocus(checkPassword) {
-    reset(checkPassword, getSpan()[2], "±ØÌî£¬ÓëÃÜÂëÒ»ÖÂ");
+    reset(checkPassword, getSpan()[2], "å¿…å¡«ï¼Œä¸å¯†ç ä¸€è‡´");
 }
 
-/*È·ÈÏÃÜÂë¿òÊ§È¥½¹µã*/
+/*ç¡®è®¤å¯†ç æ¡†å¤±å»ç„¦ç‚¹*/
 function checkBlur(checkPassword, password) {
     var flag2 = false;
     var check = checkPassword.value;
     if (check.trim().length == 0) {
-        noInput(checkPassword, getSpan()[2], "È·ÈÏÃÜÂë²»ÄÜÎª¿Õ");
+        noInput(checkPassword, getSpan()[2], "ç¡®è®¤å¯†ç ä¸èƒ½ä¸ºç©º");
     } else if (check === password) {
-        rightInput(checkPassword, getSpan()[2], "ÓëÃÜÂëÒ»ÖÂ ");
+        rightInput(checkPassword, getSpan()[2], "ä¸å¯†ç ä¸€è‡´ ");
         flag2 = true;
     } else {
-        wrongInput(checkPassword, getSpan()[2], "ÓëÃÜÂë²»Ò»ÖÂ ");
+        wrongInput(checkPassword, getSpan()[2], "ä¸å¯†ç ä¸ä¸€è‡´ ");
     }
     return flag2;
 }
 
-/*ÓÊÏä»ñµÃ½¹µã*/
+/*é‚®ç®±è·å¾—ç„¦ç‚¹*/
 function emailFocus(email) {
-    reset(email, getSpan()[3], "±ØÌî");
+    reset(email, getSpan()[3], "å¿…å¡«");
 }
 
-/*ÓÊÏäÊ§È¥½¹µã*/
+/*é‚®ç®±å¤±å»ç„¦ç‚¹*/
 function emailBlur(email) {
     var flag3 = false;
     var data = email.value;
     var reg = /^[a-zA-Z0-9]+([-_.][A-Za-z0-9]+)*@([A-Za-z0-9]+[-.])+[0-9A-Za-z]{2,5}$/;
     if (reg.test(data)) {
-        rightInput(email, getSpan()[3], "ÓÊÏä¸ñÊ½ÕıÈ·");
+        rightInput(email, getSpan()[3], "é‚®ç®±æ ¼å¼æ­£ç¡®");
         flag3 = true;
     } else if (data.trim().length == 0) {
-        noInput(email, getSpan()[3], "ÓÊÏä²»ÄÜÎª¿Õ");
+        noInput(email, getSpan()[3], "é‚®ç®±ä¸èƒ½ä¸ºç©º");
     } else {
-        wrongInput(email, getSpan()[3], "ÓÊÏä¸ñÊ½´íÎó");
+        wrongInput(email, getSpan()[3], "é‚®ç®±æ ¼å¼é”™è¯¯");
     }
     return flag3;
 }
 
-/*ÊÖ»ú¿ò»ñµÃ½¹µã*/
+/*æ‰‹æœºæ¡†è·å¾—ç„¦ç‚¹*/
 function phoneFocus(phone) {
-    reset(phone, getSpan()[4], "±ØÌî");
+    reset(phone, getSpan()[4], "å¿…å¡«");
 }
 
-/*ÊÖ»ú¿òÊ§È¥½¹µã*/
+/*æ‰‹æœºæ¡†å¤±å»ç„¦ç‚¹*/
 function phoneBlur(phone) {
     var reg = /^1[34578]\d{9}$/;
     var data = phone.value;
     var flag4 = false;
     if (reg.test(data)) {
-        rightInput(phone, getSpan()[4], "ÊÖ»úºÅÓĞĞ§");
+        rightInput(phone, getSpan()[4], "æ‰‹æœºå·æœ‰æ•ˆ");
         flag4 = true;
     } else if (data.trim().length == 0) {
-        noInput(phone, getSpan()[4], "ÊÖ»úºÅ²»ÄÜÎª¿Õ")
+        noInput(phone, getSpan()[4], "æ‰‹æœºå·ä¸èƒ½ä¸ºç©º")
     } else {
-        wrongInput(phone, getSpan()[4], "ÊÖ»úºÅÎŞĞ§");
+        wrongInput(phone, getSpan()[4], "æ‰‹æœºå·æ— æ•ˆ");
     }
     return flag4;
 }
 
-/*³õÊ¼»¯£¬°ó¶¨ÊÂ¼ş*/
+/*åˆå§‹åŒ–ï¼Œç»‘å®šäº‹ä»¶*/
 function init() {
-    /*¼ÇÂ¼Ğ£Ñé½á¹û*/
+    /*è®°å½•æ ¡éªŒç»“æœ*/
     var flag1 = false;
     var flag2 = false;
     var flag3 = false;
@@ -206,10 +206,10 @@ function init() {
     };
     btn.onclick = function () {
         if (flag1 && flag2 && flag3 && flag4 && flag5) {
-            alert("Ìá½»³É¹¦");
+            alert("æäº¤æˆåŠŸ");
             return true
         } else {
-            alert("Ìá½»Ê§°Ü");
+            alert("æäº¤å¤±è´¥");
             return false
         }
     }
