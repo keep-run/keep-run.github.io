@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        form {
+            margin-top: 50px;
+            margin-left: 30px;
+        }
+
+        label {
+            display: inline-block;
+            width: 45px;
+        }
+
+        input {
+            width: 200px;
+            height: 20px;
+            border: 2px solid gray;
+            outline: none;
+        }
+
+        button {
+            height: 24px;
+            background-color: #2C79BF;
+            border-width: 0;
+            outline: none;
+        }
+
+        p {
+            margin-left: 45px;
+            margin-top: 5px;
+            font-size: smaller;
+            color: gray;
+        }
+
+        input, button {
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <label for="name">名称</label>
+    <input id="name">
+    <button id="check">验证</button>
+    <p id="result">必填，长度为4-16个字符</p>
+</form>
+<script>
+    /*输入格式正确*/
+    function rightInput(name, result) {
+        result.style.color = "#5EBB46";
+        result.innerHTML = "名称格式正确";
+        name.style.borderColor = "#5EBB46";
+    }
+
+    /*输入格式错误*/
+    function wrongInput(name, result) {
+        result.style.color = "red";
+        result.innerHTML = "名称格式错误";
+        name.style.borderColor = "red";
+    }
+
+    /*输入为空*/
+    function noInput(name, result) {
+        result.style.color = "red";
+        result.innerHTML = "名称不能为空";
+        name.style.borderColor = "red";
+    }
+
+    function check() {
+        var name = document.getElementById("name");
+        var result = document.getElementById("result");
+        var data = name.value;
+        var length = 0;
+        //匹配中文字符和汉字
+        var reg = /[\u4E00-\u9FA5\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b\u2019\u2018]/;
+        if (data.trim()) {
+            for (var i = 0; i < data.length; i++) {
+                if (reg.test(data.charAt(i))) {
+                    length += 2;
+                } else {
+                    length += 1;
+                }
+            }
+        }
+        if ((length >= 4) && (length <= 16)) {
+            rightInput(name, result);
+        } else if (length == 0) {
+            noInput(name, result);
+        } else {
+            wrongInput(name, result);
+        }
+    }
+
+    /*初始化，绑定点击事件*/
+    function init() {
+        document.getElementById("check").onclick = function () {
+            check();
+            return false;
+        };
+
+    }
+
+    init();
+</script>
+</body>
+</html>

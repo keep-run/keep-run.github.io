@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE binbin task4</title>
+    <style>
+        span {
+            display: inline-block;
+            background-color: red;
+            margin: 10px 5px;
+            padding: 10px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="num" placeholder="请输入一个整数">
+<button id="left-in">左侧入</button>
+<button id="right-in">右侧入</button>
+<button id="left-out">左侧出</button>
+<button id="right-out">右侧出</button>
+<div id="queue"></div>
+<script type="text/javascript">
+
+    /*检测输入输入的是不是整数*/
+    function checkInput(num) {
+        var reg = /^[+-]?\d+$/;
+        if (reg.test(num)) {
+            return true;
+        } else {
+            alert("请输入整数");
+            return false;
+        }
+    }
+
+    /*返回输入的合法数值*/
+    function getNum() {
+        var input = document.getElementById("num");
+        var num = input.value;
+        input.value = ""; //拿到值之后清空输入框，方便下次输入
+        if (checkInput(num)) {
+            return num;
+        } else {
+            return null;
+        }
+    }
+
+    /*实现左边输入功能*/
+    function leftIn(queue) {
+        var num = getNum();
+        if (num) {
+            var span = document.createElement("span");
+            var children = queue.childNodes;
+            span.innerHTML = num;
+            queue.insertBefore(span, children[0]);
+        }
+    }
+
+    /*实现右输入功能*/
+    function rightIn(queue) {
+        var num = getNum();
+        if (num) {
+            var span = document.createElement("span");
+            span.innerHTML = num;
+            queue.appendChild(span);
+        }
+    }
+    /*实现左边删除功能*/
+    function leftOut(queue) {
+        var children = queue.childNodes;
+        if (children.length > 0) {
+            alert("左侧出：" + children[0].innerHTML)
+            queue.removeChild(children[0]);
+        }
+    }
+
+    /*实现右删除功能*/
+    function rightOut(queue) {
+        var children = queue.childNodes;
+        if (children.length > 0) {
+            alert("右侧出：" + children[children.length - 1].innerHTML);
+            queue.removeChild(children[children.length - 1]);
+        }
+    }
+    /*初始化，为按钮绑定事件*/
+    function init() {
+        var queue = document.getElementById("queue");
+        document.getElementById("left-in").onclick = function () {
+            leftIn(queue);
+        };
+        document.getElementById("right-in").onclick = function () {
+            rightIn(queue);
+        };
+        document.getElementById("left-out").onclick = function () {
+            leftOut(queue);
+        };
+        document.getElementById("right-out").onclick = function () {
+            rightOut(queue);
+        };
+        document.getElementById("queue").onclick = function (event) {
+            /*以下两个考虑到浏览器的兼容问题，IE下event是window的属性
+             e.srcElement也是IE下获取发生事件的那个元素*/
+            var e = window.event || event;
+            var t = e.target || e.srcElement;
+            /*在HTML中，t.tagName返回的是标签名的大写形式；XML中返回的与源码中大小写一致*/
+            var tag = t.tagName.toLowerCase();
+            if (tag === "span") {
+                queue.removeChild(t);
+            }
+        }
+    }
+    init();
+</script>
+</body>
+</html>
