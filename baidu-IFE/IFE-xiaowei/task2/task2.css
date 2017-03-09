@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dedede;
+    font-family: "Microsoft YaHei", helvetica, arial, sans-serif;
+    font-size: 15px;
+}
+
+header {
+    background-color: #333;
+}
+
+.nav {
+    float: right;
+}
+
+.nav li {
+    float: left;
+    margin-right: 10px;
+    list-style-type: none;
+}
+
+.nav li a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav li:last-child a {
+    color: #91969E
+}
+
+article, aside {
+    background-color: #ffffff;
+    margin: 3%;
+    box-shadow: 3px 3px 3px #919191;
+    padding: 2%;
+}
+
+figure {
+    border: 1px solid black;
+    width: 250px;
+}
+
+figure figcaption {
+    margin-top: 10px;
+    text-align: center;
+}
+
+figure img {
+    display: block;
+    margin: 10px auto;
+}
+
+article ol li {
+    font-family: "Microsoft YaHei", helvetica, arial, sans-serif;
+    font-weight: bold;
+}
+
+article table {
+    border-color: grey;
+    border-collapse: collapse;
+    width: 100%
+
+}
+
+article table thead {
+    background: black;
+    color: white;
+}
+
+article table tfoot {
+    background: #ccc;
+    font-weight: bold;
+}
+
+aside h2 {
+    margin-top: 10px;
+    font-weight: bold;
+    border-left: 3px solid #dedede;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.register {
+    margin: auto;
+    font-size: small;
+}
+
+.register tr td:first-child {
+    text-align: right;
+    height: 25px;
+}
+
+.register tr:first-child td {
+    text-align: left;
+}
+
+#submit {
+    width: 100%;
+    height: 40px;
+    background-color: #3355d0;
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    height: 60px;
+}
+
+
+
+
+
